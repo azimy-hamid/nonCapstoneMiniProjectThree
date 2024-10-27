@@ -145,6 +145,4 @@ The application should now be running on `http://localhost:3000`.
   `DELETE /api/applicationStages/:id`
   - Response: Success message
 
-## License
-
-This project is licensed under the MIT License.
+<small>This is a temp. readme which will then be moved for the backend once the frontend is created!</small>
