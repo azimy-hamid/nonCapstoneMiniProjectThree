@@ -1,0 +1,594 @@
+{
+	"info": {
+		"_postman_id": "8cfcb0e7-40b2-4ba7-8c8d-9653ad44626e",
+		"name": "non capstone 3rd mini project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "38065980"
+	},
+	"item": [
+		{
+			"name": "users routes",
+			"item": [
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"testUser\",\n    \"email\": \"testuser@example.com\",\n    \"password\": \"Test@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "get all users",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2U3ZGM4ODEtZDZiMy00ZDYyLThjYzYtMGYzYzNiYWY0ODcyIiwiaWF0IjoxNzMxMDQ5NDE2LCJleHAiOjE3MzEwNTMwMTZ9.cjaUDoXJdZY4TiOlxB9yinxp6OQ-RTtcc4gapcYhH4M"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/users/get-all-users"
+					},
+					"response": []
+				},
+				{
+					"name": "login users",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"testuser@example.com\",\n    \"password\": \"Test@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/login"
+					},
+					"response": []
+				},
+				{
+					"name": "get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/users/get-user-by-id/20fe2dce-5017-4e49-b843-6f1be3280828"
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"updatedUser\",\n    \"email\": \"hamidazimy875@gmail.com\",\n    \"password\": \"Updated@1234\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/update-user/20fe2dce-5017-4e49-b843-6f1be3280828"
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/users/delete-user/20fe2dce-5017-4e49-b843-6f1be3280828"
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"hamidazimy875@gmail.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/users/recover-password"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "job applications routes",
+			"item": [
+				{
+					"name": "create job application",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"ce7dc881-d6b3-4d62-8cc6-0f3c3baf4872\",\n    \"job_title\": \"Software Engineer\",\n    \"application_date\": \"2024-10-25\",\n    \"notes\": \"Looking forward to the interview.\",\n    \"company_name\": \"Tech Innovations Inc.\",\n    \"location\": \"New York, NY\",\n    \"website\": \"https://www.techinnovations.com\",\n    \"industry\": \"Technology\",\n    \"contact_name\": \"Jane Doe\",\n    \"contact_role\": \"Recruiter\",\n    \"contact_email\": \"jane.doe@techinnovations.com\",\n    \"contact_phone\": \"555-123-4567\",\n    \"contact_notes\": \"Met at the job fair.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/job-applications/create-job-application"
+					},
+					"response": []
+				},
+				{
+					"name": "get all job applications",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiY2U3ZGM4ODEtZDZiMy00ZDYyLThjYzYtMGYzYzNiYWY0ODcyIiwiaWF0IjoxNzMxMDQ5NDE2LCJleHAiOjE3MzEwNTMwMTZ9.cjaUDoXJdZY4TiOlxB9yinxp6OQ-RTtcc4gapcYhH4M"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/job-applications/get-all-job-applications?page=1&limit=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"job-applications",
+								"get-all-job-applications"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "limit",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get job application by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/job-applications/get-job-application-by-id/d3416ea0-a6ab-41ae-a428-19efe2742751"
+					},
+					"response": []
+				},
+				{
+					"name": "update job application",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"job_title\": \"Senior Software Engineer\",\n  \"notes\": \"Updated this record\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/job-applications/update-job-application/d3416ea0-a6ab-41ae-a428-19efe2742751"
+					},
+					"response": []
+				},
+				{
+					"name": "delete job application",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/job-applications/delete-job-application/d3416ea0-a6ab-41ae-a428-19efe2742751"
+					},
+					"response": []
+				},
+				{
+					"name": "update job application company by only id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/job-applications/update-job-application-company-by-only-id/d3416ea0-a6ab-41ae-a428-19efe2742751"
+					},
+					"response": []
+				},
+				{
+					"name": "update job application company by providing the company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/job-applications/update-job-application-company-by-providing-the-company/d3416ea0-a6ab-41ae-a428-19efe2742751"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "company routes",
+			"item": [
+				{
+					"name": "create company",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Purple Horizon Financial\",\n    \"location\": \"New York, NY\",\n    \"website\": \"https://www.purplehorizonfinancial.com\",\n    \"industry\": \"Finance\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/companies/create-company"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-companies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/companies/get-all-companies"
+					},
+					"response": []
+				},
+				{
+					"name": "get-company-by-id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/companies/get-company-by-id/71b81b18-f0ac-4e81-ba75-4c40caa25359"
+					},
+					"response": []
+				},
+				{
+					"name": "update company",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"company_name\": \"Purple Horizon Financial Updated\",\n  \"location\": \"Los Angeles, CA\",\n  \"website\": \"https://www.purplehorizonfinancial.com/updated\",\n  \"industry\": \"Investment Services\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/companies/update-company/71b81b18-f0ac-4e81-ba75-4c40caa25359"
+					},
+					"response": []
+				},
+				{
+					"name": "delete company",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/companies/delete-company/71b81b18-f0ac-4e81-ba75-4c40caa25359"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contacts routes",
+			"item": [
+				{
+					"name": "create contact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"role\": \"Project Manager\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/contacts/create-contact"
+					},
+					"response": []
+				},
+				{
+					"name": "get all contacts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/contacts/get-all-contacts"
+					},
+					"response": []
+				},
+				{
+					"name": "get contact by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/contacts/get-contact-by-id/3262b662-98c3-47ed-beb7-d63efead3e0c"
+					},
+					"response": []
+				},
+				{
+					"name": "update contact",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Haamed Azimi\",\n    \"role\": \"Project Manager\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/contacts/update-contact/3262b662-98c3-47ed-beb7-d63efead3e0c"
+					},
+					"response": []
+				},
+				{
+					"name": "delete contact",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/contacts/delete-contact/3262b662-98c3-47ed-beb7-d63efead3e0c"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "interviews routes",
+			"item": [
+				{
+					"name": "create interview",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"application_id\": \"ce7dc881-d6b3-4d62-8cc6-0f3c3baf4872\",\n    \"interview_date\": \"2024-10-30\",\n    \"interview_stage\": \"Initial Screening\",\n    \"feedback\": \"Strong communication skills and relevant experience.\",\n    \"result\": \"Pending\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/interviews/create-interview"
+					},
+					"response": []
+				},
+				{
+					"name": "get all interviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/interviews/get-all-interviews"
+					},
+					"response": []
+				},
+				{
+					"name": "get interview by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/interviews/get-interview-by-id/2c9a24d6-401e-41ba-acf7-027f0ca324ca"
+					},
+					"response": []
+				},
+				{
+					"name": "update interview",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"feedback\": \"Strong communication skills and relevant experience.\",\n    \"result\": \"Pending\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/interviews/update-interview/2c9a24d6-401e-41ba-acf7-027f0ca324ca"
+					},
+					"response": []
+				},
+				{
+					"name": "delete interview",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/interviews/delete-interview/2c9a24d6-401e-41ba-acf7-027f0ca324ca"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "reminders routes",
+			"item": [
+				{
+					"name": "get all reminders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/reminders/get-all-reminders"
+					},
+					"response": []
+				},
+				{
+					"name": "create reminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"user_id\": \"ce7dc881-d6b3-4d62-8cc6-0f3c3baf4872\",\n  \"application_id\": \"c2ddb232-ac9e-4465-aeb7-fb181be50ccd\",\n  \"reminder_date\": \"2024-11-10T14:30:00Z\",\n  \"description\": \"Follow up with the company about the job application\",\n  \"status\": \"Pending\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/reminders/create-reminder"
+					},
+					"response": []
+				},
+				{
+					"name": "get reminder by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/reminders/get-reminder-by-id/e5f36373-ef0d-44e1-bcb0-30b167a62c13"
+					},
+					"response": []
+				},
+				{
+					"name": "update reminder",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"reminder_date\": \"2024-12-10T14:30:00Z\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/reminders/update-reminder/e5f36373-ef0d-44e1-bcb0-30b167a62c13"
+					},
+					"response": []
+				},
+				{
+					"name": "delete reminder",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/reminders/delete-reminder/e5f36373-ef0d-44e1-bcb0-30b167a62c13"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "statuses routes",
+			"item": [
+				{
+					"name": "create status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status_name\": \"Interview Scheduled\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/statuses/create-status"
+					},
+					"response": []
+				},
+				{
+					"name": "get all statuses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/statuses/get-all-statuses"
+					},
+					"response": []
+				},
+				{
+					"name": "get status by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:3000/statuses/get-status-by-id/11efb4f0-5854-4899-9389-cfece6ad856a"
+					},
+					"response": []
+				},
+				{
+					"name": "update status",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status_name\": \"status name updated\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:3000/statuses/update-status/347be608-4e0a-4a2c-ae8c-3299f82d05a2"
+					},
+					"response": []
+				},
+				{
+					"name": "delete status",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:3000/statuses/delete-status/347be608-4e0a-4a2c-ae8c-3299f82d05a2"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
