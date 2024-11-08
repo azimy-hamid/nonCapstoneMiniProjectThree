@@ -26,7 +26,7 @@ const authenticate = async (req, res, next) => {
       return res.status(401).json({ error: "Invalid token!" });
     }
 
-    const user = await Users.findByPk(decoded.userId);
+    const user = await Users.findByPk(decoded.user_id);
 
     if (!user) {
       return res.status(404).json({ error: "User not found!" });

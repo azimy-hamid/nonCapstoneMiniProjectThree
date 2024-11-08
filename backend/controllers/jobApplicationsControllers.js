@@ -182,13 +182,39 @@ export const updateJobApplicationCompanyByProvidingTheCompany = async (
   }
 };
 
-// Get all job applications
+// Get all job applications with pagination
 export const getAllJobApplications = async (req, res) => {
+  let { page = 1, limit = 10 } = req.query; // Default to page 1 and limit 10 if not provided
+
+  // Convert page and limit to integers
+  page = parseInt(page, 10);
+  limit = parseInt(limit, 10);
+
+  // Validate page and limit values
+  if (isNaN(page) || page < 1) {
+    page = 1; // Default to page 1 if page is invalid
+  }
+  if (isNaN(limit) || limit < 1) {
+    limit = 10; // Default to 10 if limit is invalid
+  }
+
+  const offset = (page - 1) * limit;
+
   try {
-    const applications = await JobApplications.findAll({
+    // Find job applications with pagination
+    const applications = await JobApplications.findAndCountAll({
       where: { is_deleted: false },
+      limit,
+      offset,
     });
-    res.status(200).json({ success: true, data: applications });
+
+    res.status(200).json({
+      success: true,
+      data: applications.rows,
+      totalItems: applications.count,
+      totalPages: Math.ceil(applications.count / limit),
+      currentPage: page,
+    });
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
