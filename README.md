@@ -11,8 +11,6 @@ This project is a Node.js-based API for managing job applications. It allows you
 - [API Endpoints](#api-endpoints)
   - [Contacts](#contacts)
   - [Companies](#companies)
-  - [Application Stages](#application-stages)
-- [License](#license)
 
 ## Project Structure
 
@@ -21,15 +19,12 @@ job-application-project/
 ├── controllers/
 │   ├── contactsController.js
 │   ├── companiesController.js
-│   ├── applicationStagesController.js
 ├── models/
 │   ├── Contacts.js
 │   ├── Companies.js
-│   ├── ApplicationStages.js
 ├── routes/
 │   ├── contactsRoutes.js
 │   ├── companiesRoutes.js
-│   ├── applicationStagesRoutes.js
 ├── app.js
 └── README.md
 ```
@@ -88,61 +83,501 @@ The application should now be running on `http://localhost:3000`.
 ### Contacts
 
 - **Create Contact**  
-  `POST /api/contacts`
-  - Request Body: `application_id`, `name`, `role`, `email`, `phone`, `notes`
+  `POST /contacts/contacts`
+  - Request Body: `name`, `role`, `email`, `phone`, `notes`
   - Response: New contact created
 - **Get All Contacts**  
-  `GET /api/contacts`
+  `GET /contacts/contacts`
   - Response: List of all contacts
 - **Get Contact by ID**  
-  `GET /api/contacts/:id`
+  `GET /contacts/contacts/:id`
   - Response: Contact with specified ID
 - **Update Contact**  
-  `PUT /api/contacts/:id`
+  `PUT /contacts/contacts/:id`
   - Request Body: Any field to update (e.g., `name`, `email`)
   - Response: Updated contact data
 - **Delete Contact**  
-  `DELETE /api/contacts/:id`
+  `DELETE /contacts/contacts/:id`
   - Response: Success message
 
 ### Companies
 
 - **Create Company**  
-  `POST /api/companies`
+  `POST /companies/companies`
   - Request Body: `company_name`, `location`, `website`, `industry`
   - Response: New company created
 - **Get All Companies**  
-  `GET /api/companies`
+  `GET /companies/companies`
   - Response: List of all companies
 - **Get Company by ID**  
-  `GET /api/companies/:id`
+  `GET /companies/companies/:id`
   - Response: Company with specified ID
 - **Update Company**  
-  `PUT /api/companies/:id`
+  `PUT /companies/companies/:id`
   - Request Body: Any field to update (e.g., `company_name`, `location`)
   - Response: Updated company data
 - **Delete Company**  
-  `DELETE /api/companies/:id`
+  `DELETE /companies/companies/:id`
   - Response: Success message
 
-### Application Stages
+### Interviews
 
-- **Create Application Stage**  
-  `POST /api/applicationStages`
-  - Request Body: `application_id`, `stage_name`, `start_date`, `end_date`, `status`
-  - Response: New application stage created
-- **Get All Application Stages**  
-  `GET /api/applicationStages`
-  - Response: List of all application stages
-- **Get Application Stage by ID**  
-  `GET /api/applicationStages/:id`
-  - Response: Application stage with specified ID
-- **Update Application Stage**  
-  `PUT /api/applicationStages/:id`
-  - Request Body: Any field to update (e.g., `stage_name`, `status`)
-  - Response: Updated stage data
-- **Delete Application Stage**  
-  `DELETE /api/applicationStages/:id`
-  - Response: Success message
+- **Create Interview**  
+  `POST /interviews/interviews`
+
+  - Request Body: `application_id`, `interview_date`, `interview_stage`, `feedback`, `result`
+  - Response: New interview created
+
+- **Get All Interviews**  
+  `GET /interviews/interviews`
+
+  - Response: List of all interviews that are not marked as deleted
+
+- **Get Interview by ID**  
+  `GET /interviews/interviews/:id`
+
+  - Response: Interview with specified `id` that is not marked as deleted
+
+- **Update Interview**  
+  `PUT /interviews/interviews/:id`
+
+  - Request Body: Any field to update (`application_id`, `interview_date`, `interview_stage`, `feedback`, `result`)
+  - Response: Updated interview data
+
+- **Delete Interview** (Soft Delete)  
+  `DELETE /interviews/interviews/:id`
+  - Response: Success message indicating the interview has been soft-deleted
+
+### Job Applications
+
+- **Create Job Application**  
+  `POST /create-job-application`
+
+  - Request Body:
+    ```json
+    {
+      "user_id": "string",
+      "job_title": "string",
+      "application_date": "string",
+      "notes": "string",
+      "company_name": "string",
+      "location": "string",
+      "website": "string",
+      "industry": "string",
+      "contact_name": "string",
+      "contact_role": "string",
+      "contact_email": "string",
+      "contact_phone": "string",
+      "contact_notes": "string"
+    }
+    ```
+  - Response: New job application created
+
+- **Update Job Application Company by Only ID**  
+  `PUT /update-job-application-company-by-only-id`
+
+  - Request Body:
+    ```json
+    {
+      "company_id": "string"
+    }
+    ```
+  - Response: Updated job application with new company ID
+
+- **Update Job Application Company by Providing the Company**  
+  `PUT /update-job-application-company-by-providing-the-company`
+
+  - Request Body:
+    ```json
+    {
+      "company_name": "string",
+      "location": "string",
+      "website": "string",
+      "industry": "string"
+    }
+    ```
+  - Response: Updated job application with new company details
+
+- **Get All Job Applications**  
+  `GET /get-all-job-applications`
+
+  - Query Parameters:
+    - `page`: The page number (optional)
+    - `limit`: Number of records per page (optional)
+  - Response: List of all job applications
+
+- **Get Job Application by ID**  
+  `GET /get-job-application-by-id/:id`
+
+  - Response: Job application with specified `id`
+
+- **Update Job Application**  
+  `PUT /update-job-application/:id`
+
+  - Request Body:
+    ```json
+    {
+      "company_id": "string",
+      "job_title": "string",
+      "status_id": "string",
+      "application_date": "string",
+      "notes": "string"
+    }
+    ```
+  - Response: Updated job application data
+
+- **Soft Delete Job Application**  
+  `DELETE /delete-job-application/:id`
+  - Response: Success message indicating the job application has been soft-deleted
+
+### Reminders
+
+- **Create Reminder**  
+  `POST /create-reminder`
+
+  - Request Body:
+    ```json
+    {
+      "user_id": "string",
+      "application_id": "string",
+      "reminder_date": "string",
+      "description": "string",
+      "status": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "reminder_id": "uuid",
+        "user_id": "string",
+        "application_id": "string",
+        "reminder_date": "string",
+        "description": "string",
+        "status": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Creates a new reminder for a user with the provided details.
+
+- **Get All Reminders**  
+  `GET /get-all-reminders`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": [
+        {
+          "reminder_id": "uuid",
+          "user_id": "string",
+          "application_id": "string",
+          "reminder_date": "string",
+          "description": "string",
+          "status": "string",
+          "is_deleted": false
+        },
+        ...
+      ]
+    }
+    ```
+  - Description: Retrieves a list of all reminders that are not marked as deleted.
+
+- **Get Reminder by ID**  
+  `GET /get-reminder-by-id/:id`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "reminder_id": "uuid",
+        "user_id": "string",
+        "application_id": "string",
+        "reminder_date": "string",
+        "description": "string",
+        "status": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Retrieves a specific reminder by its ID, ensuring it is not deleted.
+
+- **Update Reminder**  
+  `PUT /update-reminder/:id`
+
+  - Request Body:
+    ```json
+    {
+      "user_id": "string",
+      "application_id": "string",
+      "reminder_date": "string",
+      "description": "string",
+      "status": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "reminder_id": "uuid",
+        "user_id": "string",
+        "application_id": "string",
+        "reminder_date": "string",
+        "description": "string",
+        "status": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Updates a reminder's details. At least one field (user_id, application_id, reminder_date, description, status) must be provided for the update.
+
+- **Soft Delete Reminder**  
+  `DELETE /delete-reminder/:id`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "Reminder deleted successfully"
+    }
+    ```
+  - Description: Soft deletes the reminder by marking it as deleted (`is_deleted: true`).
+
+  ### Statuses
+
+- **Create Status**  
+  `POST /create-status`
+
+  - Request Body:
+    ```json
+    {
+      "status_name": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "status_id": "uuid",
+        "status_name": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Creates a new status with the provided status name.
+
+- **Get All Statuses**  
+  `GET /get-all-statuses`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": [
+        {
+          "status_id": "uuid",
+          "status_name": "string",
+          "is_deleted": false
+        },
+        ...
+      ]
+    }
+    ```
+  - Description: Retrieves a list of all statuses that are not marked as deleted.
+
+- **Get Status by ID**  
+  `GET /get-status-by-id/:id`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "status_id": "uuid",
+        "status_name": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Retrieves a specific status by its ID, ensuring it is not deleted.
+
+- **Update Status**  
+  `PUT /update-status/:id`
+
+  - Request Body:
+    ```json
+    {
+      "status_name": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "data": {
+        "status_id": "uuid",
+        "status_name": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Updates the status' name. If no `status_name` is provided, no update will be made.
+
+- **Soft Delete Status**  
+  `DELETE /delete-status/:id`
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "Status deleted successfully"
+    }
+    ```
+  - Description: Soft deletes the status by marking it as deleted (`is_deleted: true`).
+
+### User Routes
+
+- **Sign Up User**  
+  `POST /signup`
+
+  - Request Body:
+    ```json
+    {
+      "username": "string",
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "User created successfully",
+      "token": "string",
+      "user": {
+        "user_id": "uuid",
+        "username": "string",
+        "email": "string",
+        "password": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Creates a new user with the provided details and returns a JWT token for authentication.
+
+- **Login User**  
+  `POST /login`
+
+  - Request Body:
+    ```json
+    {
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "Login successful",
+      "token": "string",
+      "user": {
+        "user_id": "uuid",
+        "username": "string",
+        "email": "string",
+        "password": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Logs in an existing user and returns a JWT token for authentication.
+
+- **Get All Users**  
+  `GET /users`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "users": [
+        {
+          "user_id": "uuid",
+          "username": "string",
+          "email": "string",
+          "password": "string",
+          "is_deleted": false
+        },
+        {
+          "user_id": "uuid",
+          "username": "string",
+          "email": "string",
+          "password": "string",
+          "is_deleted": false
+        }
+      ]
+    }
+    ```
+  - Description: Returns a list of all users.
+
+- **Get User By ID**  
+  `GET /users/:id`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "user": {
+        "user_id": "uuid",
+        "username": "string",
+        "email": "string",
+        "password": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Returns a user by their ID.
+
+- **Update User**  
+  `PUT /users/:id`
+
+  - Request Body:
+    ```json
+    {
+      "username": "string",
+      "email": "string",
+      "password": "string"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "User updated successfully",
+      "user": {
+        "user_id": "uuid",
+        "username": "string",
+        "email": "string",
+        "password": "string",
+        "is_deleted": false
+      }
+    }
+    ```
+  - Description: Updates the details of a user by their ID.
+
+- **Delete User**  
+  `DELETE /users/:id`
+
+  - Response:
+    ```json
+    {
+      "success": true,
+      "message": "User deleted successfully"
+    }
+    ```
+  - Description: Deletes a user by their ID.
 
 <small>This is a temp. readme which will then be moved for the backend once the frontend is created!</small>
