@@ -204,6 +204,20 @@ export const getAllJobApplications = async (req, res) => {
     // Find job applications with pagination
     const applications = await JobApplications.findAndCountAll({
       where: { is_deleted: false },
+      include: [
+        {
+          model: Companies,
+          attributes: ["company_name", "location", "website", "industry"],
+        },
+        {
+          model: Contacts,
+          attributes: ["name", "role", "email", "phone", "notes"],
+        },
+        {
+          model: Statuses,
+          attributes: ["status_name"],
+        },
+      ],
       limit,
       offset,
     });
@@ -227,6 +241,20 @@ export const getJobApplicationById = async (req, res) => {
   try {
     const application = await JobApplications.findOne({
       where: { application_id: id, is_deleted: false },
+      include: [
+        {
+          model: Companies,
+          attributes: ["company_name", "location", "website", "industry"],
+        },
+        {
+          model: Contacts,
+          attributes: ["name", "role", "email", "phone", "notes"],
+        },
+        {
+          model: Statuses,
+          attributes: ["status_name"],
+        },
+      ],
     });
 
     if (!application) {
